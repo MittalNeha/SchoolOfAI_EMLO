@@ -150,3 +150,7 @@ data/
 logs/
 .env
 .autoenv
+
+file_fixer.py
+/data
+/logs

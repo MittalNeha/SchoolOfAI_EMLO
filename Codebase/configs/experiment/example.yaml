@@ -4,8 +4,8 @@
 # python train.py experiment=example
 
 defaults:
-  - override /datamodule: mnist.yaml
-  - override /model: mnist.yaml
+  - override /datamodule: cifar10.yaml
+  - override /model: cifar10.yaml
   - override /callbacks: default.yaml
   - override /trainer: default.yaml
 

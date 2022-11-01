@@ -30,6 +30,65 @@ _Suggestions are always welcome!_
 
 <br>
 
+## 📌  Changes implemented for Step-wise logging, Optuna Hyperparam tuning and DVC push
+
+**Code Changes**
+
+- The cifar10_optuna.yaml file is configured with optuna sweeper configurations (Hyperparam sweep), tensorboard logging alongside the datamodule and model (resnet18) specifications.
+- In timm_module.py file, step-wise logging has been enabled for training and validation using the option "on_step=True"
+- The validation loss is logged as "hp_metric" in tensorboard.
+- The training is run for 8 trial with 2 epochs in each trial.
+- The best batch_size, learning rate, and optimizer are obtained at the end of training.
+
+- Command used for training the model (Trained in Google colab using GPU)
+
+```
+!python src/train.py -m hparams_search=cifar10_optuna 
+```
+
+- The data and logs folders are pushed to Google Drive using DVC.
+
+```
+!dvc init -f
+
+!git rm -r --cached 'data'
+!dvc add data
+
+!git rm -r --cached 'logs'
+!dvc add logs
+
+!git add .
+!dvc config core.autostage true
+
+!dvc remote add gdrive -f gdrive://<drive id>
+
+!dvc push -r gdrive
+```
+
+## 📌  Changes implemented on the template and the MAKE commands
+
+**Code Changes**
+
+- Timm pretrained model has been integrated, with timm.create_model as target and resnet18 as the model_name
+- CIFAR10 DataModule has been added (cifar10_datamodule.py in src/datamodules, cifar10.yamlin configs/datamodule)
+- The model is trained using the experiment yaml file, cifar10.yaml in configs/experiment.
+
+**Makefile**
+
+- The below commands have been added in the Makefile to build the Docker image, mount the the volume to Docker Container and run the train.py.
+
+_build:_
+
+```
+docker build -t ${IMAGE_NAME} .
+```
+
+_run:_
+
+```
+docker run -it --volume `pwd`:/workspace/project emlov2-session-02:latest python3 src/train.py experiment=cifar10.yaml
+```
+
 ## 📌  Introduction
 
 **Why you should use it:**
@@ -40,12 +99,8 @@ _Suggestions are always welcome!_
 
 **Why you shouldn't use it:**
 
-- Lightning and Hydra are still evolving and integrate many libraries, which means sometimes things break - for the list of currently known problems visit [this page](https://github.com/ashleve/lightning-hydra-template/labels/bug).
-- Template is not really adjusted for data science and building data pipelines that depend on each other (it's much more useful for model prototyping on ready-to-use data).
-- The configuration setup is built with simple lightning training in mind (you might need to put some effort to adjust it for different use cases, e.g. lightning lite).
 - Limits you as much as pytorch lightning limits you.
-
-_\*keep in mind this is unofficial community project_
+- Lightning and Hydra are still evolving and integrate many libraries, which means sometimes things break - for the list of currently known problems visit [this page](https://github.com/ashleve/lightning-hydra-template/labels/bug).
 
 <br>
 
@@ -1181,13 +1236,19 @@ This template was inspired by:
 - [PyTorchLightning/deep-learninig-project-template](https://github.com/PyTorchLightning/deep-learning-project-template)
 - [drivendata/cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science)
 - [lucmos/nn-template](https://github.com/lucmos/nn-template)
+- [kedro-org/kedro](https://github.com/kedro-org/kedro)
 
-Other useful repositories:
+Useful repositories:
 
 - [jxpress/lightning-hydra-template-vertex-ai](https://github.com/jxpress/lightning-hydra-template-vertex-ai) - lightning-hydra-template integration with Vertex AI hyperparameter tuning and custom training job
 - [pytorch/hydra-torch](https://github.com/pytorch/hydra-torch) - safely configuring PyTorch classes with Hydra
 - [romesco/hydra-lightning](https://github.com/romesco/hydra-lightning) - safely configuring PyTorch Lightning classes with Hydra
 - [PyTorchLightning/lightning-transformers](https://github.com/PyTorchLightning/lightning-transformers) - official Lightning Transformers repo built with Hydra
+
+Other resources:
+
+- [Cookiecutter Data Science Project Structure Opinions](http://drivendata.github.io/cookiecutter-data-science/#opinions)
+- [The Machine Learning Reproducibility Checklist](https://www.cs.mcgill.ca/~jpineau/ReproducibilityChecklist.pdf)
 
 </details>
 
