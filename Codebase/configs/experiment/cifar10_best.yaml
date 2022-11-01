@@ -1,0 +1,22 @@
+# @package _global_
+defaults:
+  - override /datamodule: cifar10.yaml
+  - override /model: cifar10.yaml
+  - override /callbacks: default.yaml
+  - override /trainer: default.yaml
+  - override /logger: tensorboard.yaml
+
+tags: ["cifar10"]
+
+seed: 12345
+
+model:
+  net:
+    model_name: resnet18
+    pretrained: True
+    num_classes: 10
+  optimizer:
+    _target_: torch.optim.SGD
+    lr: 0.06697496391306747
+    
+
