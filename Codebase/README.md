@@ -30,7 +30,29 @@ _Suggestions are always welcome!_
 
 <br>
 
-## Changes implemented for Step-wise logging, Optuna Hyperparam tuning and DVC push
+## Session 4. Deployment of Demos
+1. Basic Demo Using Gradio<br>
+    Files Committed: configs/demo.yaml, src/demo.py
+
+    #### Train first to generate the checkpoint
+    ```
+    python3 src/train.py experiment=example
+    ```
+    #### Then run the demo
+    ```
+    python src/demo.py ckpt_path=/home/ubuntu/lightning-hydra-template/logs/train/runs/2022-09-01_02-38-23/checkpoints/last.ckpt experiment=example
+    ```
+2. Scripted Demo with TorchScript<br>
+    Files Commited: configs/demo_scripted.yaml, src/demo_scripted.yaml.py
+
+3. Running CIFAR10 Demo from Docker image
+    - Download the Docker image from [https://hub.docker.com/repository/docker/mittalneha28/session4_demo]()
+    - To run the docker use the command
+    ```
+    docker run -t -p 8080:8080 mittalneha28/session4_demo
+    ```
+
+## Session 3. Changes implemented for Step-wise logging, Optuna Hyperparam tuning and DVC push
 
 **Code Changes**
 
