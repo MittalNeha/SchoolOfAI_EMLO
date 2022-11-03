@@ -1,4 +1,6 @@
 import json
+import boto3
+import urllib.request
 
 from typing import List, Tuple
 
@@ -46,22 +48,52 @@ def demo() -> Tuple[dict, dict]:
 
         return out
 
-
     im = gr.Image(shape=(32, 32),type="pil")
 
     demo = gr.Interface(
         fn=classify_image,
         inputs=im,
-        outputs=[gr.Label(num_top_classes=10)]
+        outputs=[gr.Label(num_top_classes=5)]
     )
 
-    demo.launch(share=True)
+    demo.launch(server_name="0.0.0.0")
 
-# @hydra.main(
-#     version_base="1.2", config_path=root / "configs", config_name="demo_scripted.yaml"
-# )
+
 def main() -> None:
     print("inside main")
+
+    print("Download the model")
+    bucket_name = 'mycifar10model'
+    folder_prefix = 'model.script.pt'
+
+    s3 = boto3.resource('s3')
+    bucket = s3.Bucket(bucket_name)
+
+    bucket.download_file("model.script.pt", "model.script.pt")
+
+    # for s3_file in bucket.objects.filter(Prefix=folder_prefix):
+    #     file_object = s3_file.key
+    #     file_name = str(file_object.split('/')[-1])
+    #     print('Downloading file {} ...'.format(file_object))
+    #     bucket.download_file(file_object, '/tmp/{}'.format(file_name))
+
+    # try:
+    #     s3.Bucket(BUCKET_NAME).download_file(KEY, 'my_local_image.jpg')
+    # except botocore.exceptions.ClientError as e:
+    #     if e.response['Error']['Code'] == "404":
+    #         print("The object does not exist.")
+    #     else:
+    #         raise
+
+    #Download the labels
+    print("Downloading the class labels")
+    url, filename = (
+        "https://raw.githubusercontent.com/MittalNeha/SchoolOfAI_EMLO/main/Codebase/cifar10_classes.json",
+        "cifar10_classes.json",
+    )
+    urllib.request.urlretrieve(url, filename)
+    print("Downloaded")
+
     demo()
 
 if __name__ == "__main__":
