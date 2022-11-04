@@ -62,7 +62,7 @@ class TimmLitModule(LightningModule):
     def forward_jit(self, x: torch.Tensor):
         with torch.no_grad():
             # transform the inputs
-            x = self.predict_transform(x)
+            # x = self.predict_transform(x)
 
             # forward pass
             logits = self.net(x)
