@@ -58,4 +58,4 @@ Deployment URL: https://emlo-serverless.vercel.app/
 ```
 grep MemTotal /proc/meminfo
 ```
-2. curl command to test serverless deployement [curl](../../../../../C:/Work/EMLO/SchoolOfAI_EMLO/9.%20Deployement%20on%20Accelerators%20and%20Serverless/cmd.txt)
+2. curl command to test serverless deployement [curl](cmd.txt)
