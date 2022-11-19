@@ -23,3 +23,16 @@ Code : ![Colab Notebook](./Session7_Explainability.ipynb)
 ![](./test_images/zebra.JPG) | ![](./test_images/zebra_ig.png) | ![](./test_images/zebra_nt.png) | ![](./test_images/zebra_saliency.jpg) | ![](./test_images/zebra_occ.jpg) | ![](./test_images/zebra_shap.png) | ![](./test_images/zebra_gc.png) | ![](./test_images/zebra_gcp.png)
 ![](./test_images/van.jpg) | ![](./test_images/van_ig.png) | ![](./test_images/van_nt.png) | ![](./test_images/van_saliency.jpg) | ![](./test_images/van_occ.jpg) | ![](./test_images/van_shap.png) | ![](./test_images/van_gc.png) | ![](./test_images/van_gcp.png)
 ![](./test_images/car.jpg) | ![](./test_images/car_ig.jpg) | ![](./test_images/car_nt.jpg) | ![](./test_images/car_saliency.jpg) | ![](./test_images/car_occ.jpg) | ![](./test_images/car_grad_shap.jpg) | ![](./test_images/car_gc.png) | ![](./test_images/car_gcp.png)|
+
+
+## Adversarial Attacks using FGSM (Fast Gradient Sign Method)
+The following images have been modified such that they all predict 'Persian cat' when predicted using the pretrained resnet18 model from timm library.
+
+![](./adversarial_images/bicycle_adv.jpg) | ![](./adversarial_images/elephant_adv.jpg) | ![](./adversarial_images/palace_adv.jpg)
+
+![](./adversarial_images/car_adv.jpg) | ![](./adversarial_images/hare_adv.jpg) | ![](./adversarial_images/plate_adv.jpg)
+
+![](./adversarial_images/monitor_adv.jpg) | ![](./adversarial_images/ostrich_adv.jpg) | ![](./adversarial_images/tortoise_adv.jpg)
+
+![](./adversarial_images/tricycle_adv.jpg) | ![](./adversarial_images/zebra_adv.jpg) | ![](./adversarial_images/van_adv.jpg)
+
